@@ -8,16 +8,12 @@ path = ""
 img_path = ""
 home_fl = ""
 
-posfil = glob.glob(f"{path}/*.png")
+ff = [f"{path}/*.png", f"{path}/*.PNG", f"{path}/*.JPG", f"{path}/*.jpg", f"{path}/*.jpeg", f"{path}/*.JPEG"]
+posfil = []
 
-for i in glob.glob(f"{path}/*.jpg"):
-    posfil.append(i)
-
-for i in glob.glob(f"{path}/*.PNG"):
-    posfil.append(i)
-
-for i in glob.glob(f"{path}/*.JPG"):
-    posfil.append(i)
+for i in ff:
+    for x in glob.glob(i):
+        posfil.append(x)
 
 dora = Image.open(img_path)
 
@@ -37,8 +33,6 @@ for i in posfil:
     ten_p_h = (cor_h * 10)/100
     
     draw.ellipse((ten_p_w, ten_p_h, cor_w - ten_p_w, cor_h - ten_p_h), fill=255)
-    mask_im.save("", quality=95)
-
     mask_im_blur = mask_im.filter(ImageFilter.GaussianBlur(10))
 
     v_img.paste(temp_dora, (random.randrange(0, v_img.size[0]), random.randrange(0, v_img.size[1])), mask_im_blur)
