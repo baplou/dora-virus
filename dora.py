@@ -8,15 +8,26 @@ path = ""
 img_path = ""
 home_fl = ""
 
+# mediocre capitalization format generator thingy
 ff = [f"{path}/*.png", f"{path}/*.PNG", f"{path}/*.JPG", f"{path}/*.jpg", f"{path}/*.jpeg", f"{path}/*.JPEG"]
-posfil = []
+formats = ["png", "jpg", "jpeg"]
+for i in formats:
+    for x in range(len(i)):
+        new = i
+        neww = ""
+        for y in new: 
+            if y == new[x]:
+                neww += y.upper()
+            else:
+                neww += y
+        ff.append(f"{path}/*." + neww)
 
+posfil = []
 for i in ff:
     for x in glob.glob(i):
         posfil.append(x)
 
 dora = Image.open(img_path)
-
 for i in posfil:
     v_img = Image.open(i)
 
