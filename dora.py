@@ -1,12 +1,32 @@
 #!/usr/bin/env python3
-from PIL import Image, ImageDraw, ImageFilter
-import random
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFilter
+
 import os
+from pathlib import Path
+
+import random
 import glob
 
+# img
+# http://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png
+
+gh_path = "/.dora"
+while True:
+    if os.path.isdir(str(Path.home()) + gh_path):
+        if gh_path == "/.dora":
+            gh_path += "1"
+        else:
+            l_gh_path = gh_path[:6] + str(int(gh_path[6:]) + 1)
+            gh_path = l_gh_path
+    else:
+        os.makedirs(str(Path.home()) + gh_path)
+        break
+
+home_fl = str(Path.home() + gh_path)
 path = ""
 img_path = ""
-home_fl = ""
 
 # mediocre capitalization format generator thingy
 ff = [f"{path}/*.png", f"{path}/*.PNG", f"{path}/*.JPG", f"{path}/*.jpg", f"{path}/*.jpeg", f"{path}/*.JPEG"]
