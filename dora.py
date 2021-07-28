@@ -18,7 +18,7 @@ while True:
         if gh_path == "/.dora":
             gh_path += "1"
         else:
-            l_gh_path = gh_path[:6] + str(int(gh_path[6:]) + 1)
+            l_gh_path = gh_path + str(int(gh_path[-1]) + 1)
             gh_path = l_gh_path
     else:
         os.makedirs(str(Path.home()) + gh_path)
