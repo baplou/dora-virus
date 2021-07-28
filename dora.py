@@ -58,6 +58,16 @@ for i in formats:
                 neww += y.upper()
             else:
                 neww += y
+
+        ff.append(f"{imgs_path}/*." + neww)
+
+        neww = ""
+        for y in new:
+            if y == new[x]:
+                neww += y
+            else:
+                neww += y.upper()
+
         ff.append(f"{imgs_path}/*." + neww)
 
 posfil = []
