@@ -8,6 +8,7 @@ from pathlib import Path
 
 import random
 import glob
+import time
 
 import requests
 
@@ -26,18 +27,28 @@ while True:
 home_fl = str(Path.home()) + gh_path
 dora_img_path = f"{home_fl}/dora.png"
 
-print("Downloading image from https://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png...")
-dd_img_b = requests.get("https://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png")
-print("Download successful")
+while True:
+    try:
+        print("Downloading image from https://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png...")
+        dd_img_b = requests.get("https://assets.stickpng.com/images/580b57fbd9996e24bc43bd3e.png")
+        print("Download successful")
+        break
+    except:
+        print("Download unsuccessful")
+        print("Trying again in 5 minutes")
+        time.sleep(300)
+
 with open(dora_img_path, "wb") as f:
     f.write(dd_img_b.content)
+
 dd_img_b.close()
 
 imgs_path = ""
 
-# mediocre capitalization format generator thingy
+# this kinda works (capitalization format thing)
 ff = [f"{imgs_path}/*.png", f"{imgs_path}/*.PNG", f"{imgs_path}/*.JPG", f"{imgs_path}/*.jpg", f"{imgs_path}/*.jpeg", f"{imgs_path}/*.JPEG"]
 formats = ["png", "jpg", "jpeg"]
+
 for i in formats:
     for x in range(len(i)):
         new = i
@@ -67,10 +78,10 @@ for i in posfil:
 
     mask_im = Image.new("L", (cor_w, cor_h), 0)
     draw = ImageDraw.Draw(mask_im)
-    
+
     ten_p_w = (cor_w * 10)/100
     ten_p_h = (cor_h * 10)/100
-    
+
     draw.ellipse((ten_p_w, ten_p_h, cor_w - ten_p_w, cor_h - ten_p_h), fill=255)
     mask_im_blur = mask_im.filter(ImageFilter.GaussianBlur(10))
 
