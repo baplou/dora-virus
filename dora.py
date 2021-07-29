@@ -11,6 +11,7 @@ import glob
 import time
 
 import requests
+from tkinter import filedialog
 
 gh_path = "/.dora"
 while True:
@@ -43,7 +44,12 @@ with open(dora_img_path, "wb") as f:
 
 dd_img_b.close()
 
-imgs_path = ""
+imgs_path = filedialog.askdirectory()
+print(f"Folder to infect is located at {imgs_path}")
+
+if imgs_path == "":
+    print("No folder selected")
+    quit()
 
 # this kinda works (capitalization format thing)
 ff = [f"{imgs_path}/*.png", f"{imgs_path}/*.PNG", f"{imgs_path}/*.JPG", f"{imgs_path}/*.jpg", f"{imgs_path}/*.jpeg", f"{imgs_path}/*.JPEG"]
