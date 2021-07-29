@@ -52,7 +52,7 @@ if imgs_path == "":
     quit()
 
 # this kinda works (capitalization format thing)
-ff = [f"{imgs_path}/*.png", f"{imgs_path}/*.PNG", f"{imgs_path}/*.JPG", f"{imgs_path}/*.jpg", f"{imgs_path}/*.jpeg", f"{imgs_path}/*.JPEG"]
+ff = ["png", "PNG", "JPG", "jpg", "jpeg", "JPEG"]
 formats = ["png", "jpg", "jpeg"]
 
 for i in formats:
@@ -65,7 +65,7 @@ for i in formats:
             else:
                 neww += y
 
-        ff.append(f"{imgs_path}/*." + neww)
+        ff.append(neww)
 
         neww = ""
         for y in new:
@@ -74,12 +74,12 @@ for i in formats:
             else:
                 neww += y.upper()
 
-        ff.append(f"{imgs_path}/*." + neww)
+        ff.append(neww)
 
 posfil = []
 for i in ff:
-    for x in glob.glob(i):
-        posfil.append(x)
+    for name in glob.glob(f"{imgs_path}/**/*{i}", recursive=True):
+        posfil.append(name)
 
 # dora infecting ;)
 dora = Image.open(dora_img_path)
